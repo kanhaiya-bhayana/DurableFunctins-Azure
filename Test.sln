@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{498350E4-A8CE-4467-91A4-1536E8A27128}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{498350E4-A8CE-4467-91A4-1536E8A27128}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanOutFanIn", "FanOutFanIn\FanOutFanIn.csproj", "{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{498350E4-A8CE-4467-91A4-1536E8A27128}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{498350E4-A8CE-4467-91A4-1536E8A27128}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{498350E4-A8CE-4467-91A4-1536E8A27128}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
