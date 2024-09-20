@@ -17,7 +17,7 @@ namespace FanOutFanIn.Functions.Orchestrations
 
             for (var userId = 1; userId <= input.NumberOfUsers; userId++)
             {
-                tasks.Add(context.CallActivityAsync<SentimentResult>(nameof(CalculateUserSentiment), userId));
+                tasks.Add(context.CallActivityAsync<SentimentResult>(nameof(CalculateUserSentiment.CalculateSentiment), userId));
             }
             await Task.WhenAll(tasks);
 
