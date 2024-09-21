@@ -2,14 +2,12 @@
 using FanOutFanIn.Functions.Orchestrations;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
-using Microsoft.DurableTask;
 using Microsoft.DurableTask.Client;
-using System.Text;
-using System.Text.Json;
+using Microsoft.Extensions.Logging;
 
 namespace FanOutFanIn.Functions.Starters
 {
-    public class FanOutFanInStart
+    public class FanOutFanInStart(ILogger<FanOutFanInStart> _logger)
     {
         [Function("FanOutFanIn_HttpStart")]
         public async Task<HttpResponseData> HttpStart(
@@ -17,10 +15,9 @@ namespace FanOutFanIn.Functions.Starters
         HttpRequestData req,
         [DurableClient] DurableTaskClient client)
         {
+            _logger.LogInformation($"[Started]: {nameof(HttpStart)}");
             var input = await req.GetFromBody<SentimentUserInput>();            
-
             var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(nameof(FanOutFanInOrchestrator), input: input);
-
             return client.CreateCheckStatusResponse(req, instanceId);
         }
     }

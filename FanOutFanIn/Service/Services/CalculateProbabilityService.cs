@@ -12,13 +12,16 @@ namespace FanOutFanIn.Service.Services
     {
         public async Task<SentimentResult> Calculate(int userId)
         {
+            _logger.LogInformation( $"[Started]: {nameof(Calculate)} for the user {userId}" );
             var rnd = new Random();
 
             // simulate some work here...
             await Task.Delay(rnd.Next(0, 5_000));
             var happinessSentiment = rnd.Next(0, 100);
 
-            _logger.LogInformation($"Completed sentiment calculation for user {userId}");
+            _logger.LogInformation( $"[Completed]: {nameof(Calculate)} for the user {userId}" );
+
+            // _logger.LogInformation($"Completed sentiment calculation for user {userId}");
 
             // context.
             return new SentimentResult

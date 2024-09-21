@@ -2,22 +2,26 @@
 using Azure.Storage.Blobs.Models;
 using FanOutFanIn.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace FanOutFanIn.Service.Services
 {
     public class AzureStorageProvider
-        (IConfiguration _config): IAzureStorageProvider
+        (IConfiguration _config
+        , ILogger<AzureStorageProvider> _logger): IAzureStorageProvider
     {
         public async Task<Uri> UploadBlobFromStreamAsync(Stream stream, string blobName, string containerName)
         {
+            _logger.LogInformation( $"[Started]: {nameof(UploadBlobFromStreamAsync)} for the {nameof(blobName)}" );
             var blob = await GetBlobClientAsync(blobName, containerName);
             await blob.UploadAsync(stream, overwrite: true);
+            _logger.LogInformation( $"[Completed]: {nameof(UploadBlobFromStreamAsync)} for the {nameof(blobName)}" );
             return blob.Uri;
         }
 
         private BlobContainerClient CreateContainerClient(string containerName)
         {
-            return new BlobContainerClient(_config["storageConnectionString"], containerName);
+            return new BlobContainerClient(_config.GetValue<string>("ConnectionStrings:storageConnectionString"), containerName);
         }
 
         private async Task<BlobContainerClient> CreateOrGetContainerAsync(string containerName)

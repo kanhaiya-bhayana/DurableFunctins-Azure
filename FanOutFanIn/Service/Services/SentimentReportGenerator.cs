@@ -17,13 +17,15 @@ namespace FanOutFanIn.Service.Services
     {
         public async Task<Uri> GenerateReport(List<SentimentResult> results)
         {
+            _logger.LogInformation($"[Started]: {nameof(SentimentReportGenerator.GenerateReport)}");
             _logger.LogInformation($"Generating report for {results.Count} users");
             var reportStream = CreateReportStream(results);
-
-            return await _storageProvider.UploadBlobFromStreamAsync(
+            Uri uriResponse = await _storageProvider.UploadBlobFromStreamAsync(
                 reportStream,
-                $"report{DateTime.UtcNow:yyyy-MM-dd}.html",
-                "sentiment-reports");
+                $"report{DateTime.Now}.html",
+                "reports");
+            _logger.LogInformation($"[Completed]: {nameof(SentimentReportGenerator.GenerateReport)}");
+            return uriResponse;
         }
 
         private static MemoryStream CreateReportStream(List<SentimentResult> results)

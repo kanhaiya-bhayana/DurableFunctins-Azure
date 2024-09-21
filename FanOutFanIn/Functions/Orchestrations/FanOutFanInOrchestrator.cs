@@ -2,14 +2,16 @@
 using FanOutFanIn.Functions.Activities;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.DurableTask;
+using Microsoft.Extensions.Logging;
 
 namespace FanOutFanIn.Functions.Orchestrations
 {
-    public class FanOutFanInOrchestrator
+    public class FanOutFanInOrchestrator(ILogger<FanOutFanInOrchestrator> _logger)
     {
         [Function(nameof(FanOutFanInOrchestrator))]
         public async Task RunOrchestrator([OrchestrationTrigger] TaskOrchestrationContext context)
         {
+            _logger.LogInformation($"[Started]: {nameof(RunOrchestrator)}");
             var input = context.GetContextType<SentimentUserInput>();
 
             // Get a list of N work items to process in parallel.
@@ -23,6 +25,7 @@ namespace FanOutFanIn.Functions.Orchestrations
 
             var results = tasks.Select(x => x.Result);
             await context.CallActivityAsync(nameof(PrintReport), results);
+            _logger.LogInformation($"[Completed]: {nameof(RunOrchestrator)}");
         }
     }
 }

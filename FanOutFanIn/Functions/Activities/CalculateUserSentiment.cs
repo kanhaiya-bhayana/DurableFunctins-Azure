@@ -2,11 +2,6 @@
 using FanOutFanIn.Service.Interfaces;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FanOutFanIn.Functions.Activities
 {
@@ -17,7 +12,10 @@ namespace FanOutFanIn.Functions.Activities
         [Function(nameof(CalculateSentiment))]
         public async Task<SentimentResult> CalculateSentiment([ActivityTrigger] int userId)
         {
-            return await _calculatorProbabilityService.Calculate(userId);
+            _logger.LogInformation($"[Started]: {nameof(CalculateSentiment)}");
+            SentimentResult result = await _calculatorProbabilityService.Calculate(userId);
+            _logger.LogInformation($"[Completed]: {nameof(CalculateSentiment)}");
+            return result;
         }
     }
 }
