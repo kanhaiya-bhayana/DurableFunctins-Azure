@@ -25,6 +25,7 @@ namespace FanOutFanIn.Functions.Orchestrations
 
             var results = tasks.Select(x => x.Result);
             await context.CallActivityAsync(nameof(PrintReport), results);
+            await DownloadReportProcess.DownloadReport();
             _logger.LogInformation($"[Completed]: {nameof(RunOrchestrator)}");
         }
     }
