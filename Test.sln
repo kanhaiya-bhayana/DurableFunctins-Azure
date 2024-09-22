@@ -5,7 +5,9 @@ VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{498350E4-A8CE-4467-91A4-1536E8A27128}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FanOutFanIn", "FanOutFanIn\FanOutFanIn.csproj", "{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FanOutFanIn", "FanOutFanIn\FanOutFanIn.csproj", "{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewBlobReportProcessor", "NewBlobReportProcessor\NewBlobReportProcessor.csproj", "{35502B5B-41AB-40DC-BD0C-5454F76C8BBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0F908FC-156D-4E5C-B6AB-E5D04481E12A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35502B5B-41AB-40DC-BD0C-5454F76C8BBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35502B5B-41AB-40DC-BD0C-5454F76C8BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35502B5B-41AB-40DC-BD0C-5454F76C8BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35502B5B-41AB-40DC-BD0C-5454F76C8BBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
