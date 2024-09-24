@@ -1,23 +1,23 @@
 ﻿using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs;
+using FanOutFanIn.Service.Interfaces;
+using Microsoft.Extensions.Configuration;
 
-namespace FanOutFanIn.Functions.Activities
+namespace FanOutFanIn.Service.Services
 {
-    public class DownloadReportProcess
+    public class ReportDownloader
+        (IConfiguration _configuration): IReportDownloader
     {
-        private const string _connectionString = "DefaultEndpointsProtocol=https;AccountName=storagedev978654;AccountKey=9h9dspkXu9O+QKx9Mtx3fXz3mvZyPieSXMdCubvFTfTSUq4ni1RWoxxYrHcuro5RATTdSEUHtwrv+AStzKtxDw==;EndpointSuffix=core.windows.net";
-        private const string _containerName = "reports";
+        private readonly string _connectionString = _configuration.GetValue<string>("ConnectionStrings:storageConnectionString");
+        private readonly string _containerName = _configuration.GetValue<string>("ConnectionStrings:storageConnectionString");
         private static string binPath = Directory.GetCurrentDirectory();
         private static string _projectDirectory = Directory.GetParent(binPath).Parent.Parent.FullName;
-        private static string downloadFilePath;
-
-
-        public static async Task DownloadReport()
+        public async Task<bool> DownloadReportAsync()
         {
-            await GetBlobsAsync();
+            return await GetBlobsAsync();
         }
 
-        private static async Task GetBlobsAsync()
+        private async Task<bool> GetBlobsAsync()
         {
             try
             {
@@ -34,29 +34,32 @@ namespace FanOutFanIn.Functions.Activities
                     blobItems.Add(blobItem);
                 }
                 BlobItem? latestBlob = blobItems
-                    .OrderByDescending(b => b.Properties.LastModified) 
+                    .OrderByDescending(b => b.Properties.LastModified)
                     .FirstOrDefault();
 
                 if (latestBlob != null)
                 {
                     Console.WriteLine($"Latest blob found: {latestBlob.Name} (Last Modified: {latestBlob.Properties.LastModified})");
-                    await DownloadBlobAsync(latestBlob.Name);
+                    return await DownloadBlobAsync(latestBlob.Name);
                 }
                 else
                 {
                     Console.WriteLine("No blobs found in the container.");
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred: {ex.Message}");
+                return false;
             }
         }
 
-        private static async Task DownloadBlobAsync(string selectedBlobName)
+        private async Task<bool> DownloadBlobAsync(string selectedBlobName)
         {
             try
             {
+                bool response = false;
                 string reportsDirectory = Path.Combine(_projectDirectory, "reports");
                 if (!Directory.Exists(reportsDirectory))
                 {
@@ -84,10 +87,13 @@ namespace FanOutFanIn.Functions.Activities
                 }
 
                 Console.WriteLine($"Blob '{selectedBlobName}' downloaded successfully to '{downloadFilePath}'!");
+                response = true;
+                return response;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error occurred while downloading blob: {ex.Message}");
+                return false;
             }
         }
     }

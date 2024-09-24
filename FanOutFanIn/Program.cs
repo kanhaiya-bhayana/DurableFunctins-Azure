@@ -35,6 +35,7 @@ var host = new HostBuilder()
         services.AddTransient<ISentimentReportGenerator, SentimentReportGenerator>();
         services.AddTransient<IAzureStorageProvider, AzureStorageProvider>();
         services.AddTransient<IPersonNameGenerator, PersonNameGenerator>();
+        services.AddTransient<IReportDownloader, ReportDownloader>();
 
         services.Configure<KestrelServerOptions>(options =>
         {
