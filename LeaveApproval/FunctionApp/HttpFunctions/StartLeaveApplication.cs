@@ -33,19 +33,4 @@ namespace LeaveApproval.FunctionApp.HttpFunctions
             return new OkObjectResult($"Leave application started with instance ID: {instanceId}");
         }
     }
-
-
-    //[Function("ApprovalWorkflow_HttpStart")]
-    //public async Task<HttpResponseData> HttpStart(
-    //        [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequestData req,
-    //        [DurableClient] DurableTaskClient client,
-    //        FunctionContext executionContext)
-    //{
-    //    _logger.LogInformation($"[Started]: {nameof(HttpStart)}");
-    //    var input = await req.GetFromBody<ExpenseReport>();
-    //    var instanceId = await client.ScheduleNewOrchestrationInstanceAsync(nameof(ApprovalWorkflowOrchestrator), input: input);
-    //    var response = client.CreateCheckStatusResponse(req, instanceId);
-    //    _logger.LogInformation($"[Completed]: {nameof(HttpStart)}");
-    //    return response;
-    //}
 }

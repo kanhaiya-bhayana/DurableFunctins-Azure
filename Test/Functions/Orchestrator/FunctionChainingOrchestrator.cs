@@ -20,6 +20,7 @@ namespace Test.Functions.Orchestrator
             var coffee = await context.CallActivityAsync<bool>(nameof(HaveCoffeeFunction.HaveCoffee));
 
             var buildInput = new BuildShellInput { Tools = toolsTask.Result, Parts = partsTask.Result };
+
             var robot = await context.CallActivityAsync<RobotResponse>(nameof(BuildShellFunction.BuildShell), buildInput);
             robot = await context.CallActivityAsync<RobotResponse>(nameof(ProgramRobotFunction.ProgramRobot), robot);
             robot = await context.CallActivityAsync<RobotResponse>(nameof(TestRobotFunction.TestRobot), robot);
