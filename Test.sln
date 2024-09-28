@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewBlobReportProcessor", "N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HumanInteraction", "HumanInteraction\HumanInteraction.csproj", "{83622BB5-789E-46C5-BD54-1AA089D19094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaveApproval", "LeaveApproval\LeaveApproval.csproj", "{F10F16B6-AC59-454A-A1B6-7FF719A86A79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LeaveApproval", "LeaveApproval\LeaveApproval.csproj", "{F10F16B6-AC59-454A-A1B6-7FF719A86A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestApproval", "RequestApproval\RequestApproval.csproj", "{CD92E499-20E5-4D4C-AD33-AEB108E67B1D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F10F16B6-AC59-454A-A1B6-7FF719A86A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F10F16B6-AC59-454A-A1B6-7FF719A86A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F10F16B6-AC59-454A-A1B6-7FF719A86A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD92E499-20E5-4D4C-AD33-AEB108E67B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD92E499-20E5-4D4C-AD33-AEB108E67B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD92E499-20E5-4D4C-AD33-AEB108E67B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD92E499-20E5-4D4C-AD33-AEB108E67B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
