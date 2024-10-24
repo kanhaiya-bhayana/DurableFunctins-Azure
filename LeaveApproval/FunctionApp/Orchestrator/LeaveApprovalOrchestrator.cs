@@ -3,18 +3,14 @@ using LeaveApproval.FunctionApp.Activities;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.DurableTask;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LeaveApproval.FunctionApp.Orchestrator
 {
-    public class LeaveApprovalOrchestrator(ILogger<LeaveApprovalOrchestrator> _logger)
+    public class LeaveApprovalOrchestrator
     {
         [Function("RunOrchestrator")]
-        public async Task<LeaveApprovalResult> RunOrchestrator(
+        public async Task<Object> RunOrchestrator(
             [OrchestrationTrigger] TaskOrchestrationContext context)
         {
             var leaveApplication = context.GetInput<LeaveApplication>();
@@ -41,7 +37,7 @@ namespace LeaveApproval.FunctionApp.Orchestrator
             // Step 3: Wait for manager's decision
             using (var timeoutCts = new CancellationTokenSource())
             {
-                DateTime dueTime = context.CurrentUtcDateTime.AddDays(2); // Manager has 2 days to respond
+                DateTime dueTime = context.CurrentUtcDateTime.AddSeconds(40); // Manager has 2 days to respond
                 Task timeoutTask = context.CreateTimer(dueTime, timeoutCts.Token);
 
                 Task<bool> approvalEvent = context.WaitForExternalEvent<bool>("ManagerApproval");
@@ -65,7 +61,7 @@ namespace LeaveApproval.FunctionApp.Orchestrator
                             context.CurrentUtcDateTime,
                             isApproved ? "Leave approved." : "Leave rejected."
                         ));
-
+                    // leave approved enter in database - > 
                     // Return the approval result
                     return new LeaveApprovalResult(
                         leaveApplication.EmployeeId,
@@ -77,7 +73,7 @@ namespace LeaveApproval.FunctionApp.Orchestrator
                 else
                 {
                     // Timeout occurred
-                    _logger.LogWarning("Manager did not respond in time.");
+                    //_logger.LogWarning("Manager did not respond in time.");
 
                     // Optionally, you can set a default action or notify the employee
                     await context.CallActivityAsync(
@@ -86,16 +82,16 @@ namespace LeaveApproval.FunctionApp.Orchestrator
                             leaveApplication.EmployeeId,
                             false,
                             "System",
-                            context.CurrentUtcDateTime,
+                            context.CurrentUtcDateTime.Date,
                             "Leave request timed out due to no response from manager."
                         ));
-
-                    return new LeaveApprovalResult(
+                    LeaveApprovalResult res = new LeaveApprovalResult(
                         leaveApplication.EmployeeId,
                         false,
                         "System",
-                        context.CurrentUtcDateTime,
+                        context.CurrentUtcDateTime.Date,
                         "Manager did not respond in time.");
+                    return "hi";
                 }
             }
         }

@@ -5,7 +5,7 @@ namespace FanOutFanIn.Functions.Activities
 {
     public class DownloadReportProcess
     {
-        private const string _connectionString = "DefaultEndpointsProtocol=https;AccountName=storagedev978654;AccountKey=9h9dspkXu9O+QKx9Mtx3fXz3mvZyPieSXMdCubvFTfTSUq4ni1RWoxxYrHcuro5RATTdSEUHtwrv+AStzKtxDw==;EndpointSuffix=core.windows.net";
+        private const string _connectionString = "DefaultEndpointsProtocol=https;AccountName=clouddevstrgacc;AccountKey=TRS4w/22G2vs3YPVOLcYkvUqkNkmWKRTQTfJCBZmkpu7E1Ywq5hQ8TG1TR5zAzETa+hNgste7qot+ASt9JZy5A==;EndpointSuffix=core.windows.net";
         private const string _containerName = "reports";
         private static string binPath = Directory.GetCurrentDirectory();
         private static string _projectDirectory = Directory.GetParent(binPath).Parent.Parent.FullName;

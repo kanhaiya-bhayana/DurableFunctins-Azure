@@ -13,11 +13,10 @@ namespace LeaveApproval.FunctionApp.Activities
     {
         [Function("NotifyManagerActivity")]
         public static void NotifyManagerActivity(
-            [ActivityTrigger] LeaveApplication leaveApplication,
-            ILogger log)
+            [ActivityTrigger] LeaveApplication leaveApplication)
         {
             // Logic to notify manager (e.g., send email)
-            log.LogInformation($"Manager notified about leave request from Employee {leaveApplication.EmployeeId}.");
+            //log.LogInformation($"Manager notified about leave request from Employee {leaveApplication.EmployeeId}.");
         }
     }
 }

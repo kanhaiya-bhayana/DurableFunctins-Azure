@@ -13,15 +13,19 @@ namespace FanOutFanIn.Service.Services
         public async Task<Uri> UploadBlobFromStreamAsync(Stream stream, string blobName, string containerName)
         {
             _logger.LogInformation( $"[Started]: {nameof(UploadBlobFromStreamAsync)} for the {nameof(blobName)}" );
+
             var blob = await GetBlobClientAsync(blobName, containerName);
+
             await blob.UploadAsync(stream, overwrite: true);
             _logger.LogInformation( $"[Completed]: {nameof(UploadBlobFromStreamAsync)} for the {nameof(blobName)}" );
             return blob.Uri;
         }
 
-        private BlobContainerClient CreateContainerClient(string containerName)
+        private async Task<BlobClient> GetBlobClientAsync(string blobName, string containerName)
         {
-            return new BlobContainerClient(_config.GetValue<string>("ConnectionStrings:storageConnectionString"), containerName);
+            var container = await CreateOrGetContainerAsync(containerName);
+            var blobClient = container.GetBlobClient(blobName);
+            return blobClient;
         }
 
         private async Task<BlobContainerClient> CreateOrGetContainerAsync(string containerName)
@@ -38,11 +42,9 @@ namespace FanOutFanIn.Service.Services
             return containerClient;
         }
 
-        private async Task<BlobClient> GetBlobClientAsync(string blobName, string containerName)
+        private BlobContainerClient CreateContainerClient(string containerName)
         {
-            var container = await CreateOrGetContainerAsync(containerName);
-            var blobClient = container.GetBlobClient(blobName);
-            return blobClient;
+            return new BlobContainerClient(_config.GetValue<string>("ConnectionStrings:storageConnectionString"), containerName);
         }
     }
 }

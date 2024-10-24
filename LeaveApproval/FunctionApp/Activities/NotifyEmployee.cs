@@ -13,12 +13,11 @@ namespace LeaveApproval.FunctionApp.Activities
     {
         [Function("NotifyEmployeeActivity")]
         public static void NotifyEmployeeActivity(
-            [ActivityTrigger] LeaveApprovalResult approvalResult,
-            ILogger log)
+            [ActivityTrigger] LeaveApprovalResult approvalResult)
         {
             // Logic to notify employee (e.g., send email)
             string status = approvalResult.IsApproved ? "approved" : "rejected";
-            log.LogInformation($"Employee {approvalResult.EmployeeId} notified: Leave {status}.");
+            //log.LogInformation($"Employee {approvalResult.EmployeeId} notified: Leave {status}.");
         }
     }
 }

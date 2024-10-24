@@ -18,8 +18,11 @@ namespace FanOutFanIn.Service.Services
         public async Task<Uri> GenerateReport(List<SentimentResult> results)
         {
             _logger.LogInformation($"[Started]: {nameof(SentimentReportGenerator.GenerateReport)}");
+
             _logger.LogInformation($"Generating report for {results.Count} users");
+
             var reportStream = CreateReportStream(results);
+
             Uri uriResponse = await _storageProvider.UploadBlobFromStreamAsync(
                 reportStream,
                 $"report{DateTime.Now}.html",

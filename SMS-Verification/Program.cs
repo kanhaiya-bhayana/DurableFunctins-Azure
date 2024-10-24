@@ -9,7 +9,7 @@ var host = new HostBuilder()
     .ConfigureAppConfiguration((context, config) =>
     {
         config
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
     })
     .ConfigureServices(services =>

@@ -13,8 +13,10 @@ namespace FanOutFanIn.Functions.Activities
         public async Task Print([ActivityTrigger] List<SentimentResult> results)
         {
             _logger.LogInformation($"[Started]: {nameof(Print)}");
+
             await _reportGenerator.GenerateReport(results);
             _logger.LogInformation($"[Completed]: {nameof(Print)}");
+
         }
     }
 }

@@ -13,8 +13,11 @@ namespace FanOutFanIn.Functions.Activities
         public async Task<SentimentResult> CalculateSentiment([ActivityTrigger] int userId)
         {
             _logger.LogInformation($"[Started]: {nameof(CalculateSentiment)}");
+
             SentimentResult result = await _calculatorProbabilityService.Calculate(userId);
+
             _logger.LogInformation($"[Completed]: {nameof(CalculateSentiment)}");
+
             return result;
         }
     }
